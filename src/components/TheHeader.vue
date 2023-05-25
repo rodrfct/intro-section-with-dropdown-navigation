@@ -34,7 +34,6 @@ header {
 
 #navigation span {
     margin: 0 1em;
-    color: var(--medium-gray);
 }
 
 #navigation span img {
