@@ -3,9 +3,19 @@ import { ref } from 'vue';
 
 const sidenav = ref(false)
 
+const featuresHidden = ref(true)
+
+const companyHidden = ref(true)
+
 function toggleSidenav() {
     sidenav.value = !sidenav.value
 }
+
+function toggleFeatures() {
+    featuresHidden.value = !featuresHidden.value
+}
+
+function toggleCompany() {companyHidden.value = !companyHidden.value}
 </script>
 
 <template>
@@ -14,8 +24,49 @@ function toggleSidenav() {
 
         <nav id="navigation" :class="{sidenav}">
             <div class="links">
-                <span class="menu">Features <img src="../assets/icons/icon-arrow-down.svg" alt=""></span>
-                <span class="menu">Company <img src="../assets/icons/icon-arrow-down.svg" alt=""></span>
+                <span @click="toggleFeatures">
+                    Features
+                    <img src="../assets/icons/icon-arrow-down.svg" alt="">
+
+                    <div class="menu" :class="{hidden: featuresHidden}">
+                        <ul>
+                            <li>
+                                <img src="../assets/icons/icon-todo.svg" alt="">
+                                <p>Todo List</p>
+                            </li>
+                            <li>
+                                <img src="../assets/icons/icon-calendar.svg" alt="">
+                                <p>Calendar</p>
+                            </li>
+                            <li>
+                                <img src="../assets/icons/icon-reminders.svg" alt="">
+                                <p>Reminders</p>
+                            </li>
+                            <li>
+                                <img src="../assets/icons/icon-planning.svg" alt="">
+                                <p>Planing</p>
+                            </li>
+                        </ul>
+                    </div>
+                </span>
+                <span @click="toggleCompany">
+                    Company
+                    <img src="../assets/icons/icon-arrow-down.svg" alt="">
+                    
+                    <div class="menu company" :class="{hidden: companyHidden}">
+                        <ul>
+                            <li>
+                                <p>History</p>
+                            </li>
+                            <li>
+                                <p>Our team</p>
+                            </li>
+                            <li>
+                                <p>Blog</p>
+                            </li>
+                        </ul>
+                    </div>
+                </span>
                 <span><a href="#">Careers</a></span>
                 <span><a href="#">About</a></span>
             </div>
@@ -51,6 +102,7 @@ header {
 }
 
 #navigation span {
+    position: relative;
     margin: 0 1em;
 }
 
@@ -61,6 +113,47 @@ header {
 #navigation a {
     text-decoration: none;
     color: inherit;
+}
+
+#navigation * {
+    transition: color .4s ease;
+}
+
+.hidden {
+    display: none;
+}
+
+.menu {
+    width: 7em;
+    background-color: var(--almost-white);
+    color: var(--medium-gray);
+
+    position: absolute;
+    top: 2em;
+
+    padding: 1em;
+    border-radius: 15px;
+    box-shadow: 1px 1px 50px 1px var(--medium-gray) ;
+}
+
+/*This is a hack tbh but i'm tired and it works for now */
+.menu.company {
+    left: 50%
+}
+
+.menu p {
+    display: inline;
+    margin-left: .7em;
+}
+
+.menu p:hover {
+    color: var(--almost-black)
+}
+
+.menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
 .buttons {
@@ -92,7 +185,7 @@ header {
     z-index: 1;
 }
 
-#navigation div>*:hover, .button, #toggle {
+#navigation span:hover, .button, #toggle {
     cursor: pointer;
     color: var(--almost-black);
 }
@@ -130,17 +223,23 @@ header {
     width: 65%;
   }
 
-  .links {
+  .sidenav .links {
     grid-row: 1;
     margin-top: 3em;
     height: fit-content;
 
     display: grid;
-    grid-template-rows: repeat(4, 1fr);
+    grid-template-rows: repeat(4, auto);
     row-gap: 2em;
   }
 
-  .buttons {
+  .sidenav .menu {
+    position: static;
+    margin-top: 1em;
+    box-shadow: none;
+  }
+
+  .sidenav .buttons {
     grid-row: 2;
 
     box-sizing: border-box;
@@ -148,7 +247,7 @@ header {
     padding: 0 12%;
   }
 
-  .button {
+  .sidenav .button {
     display: block;
     width: 100%;
     margin: .5em 0;
