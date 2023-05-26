@@ -6,21 +6,23 @@ import HeroMobile from '../assets/images/image-hero-mobile.png'
 const windowSize = ref(window.innerWidth)
 
 const hero = computed(() => {
-    if (windowSize.value < 400) {
+    if (windowSize.value < 350) {
         return HeroMobile
     } else {
         return HeroDesktop
     }
 })
 
+const getWindowSize = () => {
+    windowSize.value = window.innerWidth
+}
+
 onMounted(() => {
-    window.addEventListener('resize', () => {
-        windowSize.value = window.innerWidth
-    })
+    window.addEventListener('resize', getWindowSize)
 })
 
 onUnmounted(() => {
-    window.removeEventListener('resize')
+    window.removeEventListener('resize', getWindowSize)
 })
 
 </script>
@@ -95,7 +97,7 @@ onUnmounted(() => {
     margin: 0 1em;
 }
 
-@media screen and (width < 400px) {
+@media screen and (width < 350px) {
     .wrapper {
         grid-template-columns: 1fr;
         grid-template-rows: auto auto auto;
