@@ -75,18 +75,21 @@ onUnmounted(() => {
 
 .learn-more {
     font-family: inherit;
+    font-weight: 700;
     color: var(--almost-white);
 
     background-color: var(--almost-black);
     border: none;
-    border-radius: 10px;
+    border-radius: 12px;
 
-    padding: .9em 1.4em;
+    padding: 1em 1.5em;
     margin-top: 3em;
 }
 
 .clients {
-    padding: 0 10%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: 1em;
 }
 .client {
     margin: 0 1em;
@@ -104,10 +107,24 @@ onUnmounted(() => {
 
     .content {
         grid-row: 2;
+        text-align: center;
+        padding: 0;
+    }
+
+    .content h1 {
+        font-size: 2.3em;
+    }
+
+    .learn-more {
+        margin: 0 0 2.2em 0;
     }
 
     .clients {
         grid-row: 3;
+    }
+
+    .client {
+        max-width: 100%;
     }
 }
 </style>
