@@ -3,33 +3,39 @@
         <img class="logo" src="../assets/images/logo.svg" alt="">
 
         <nav id="navigation">
-            <span class="menu">Features <img src="../assets/icons/icon-arrow-down.svg" alt=""></span>
-            <span class="menu">Company <img src="../assets/icons/icon-arrow-down.svg" alt=""></span>
-            <span><a href="#">Careers</a></span>
-            <span><a href="#">About</a></span>
+            <div class="links">
+                <span class="menu">Features <img src="../assets/icons/icon-arrow-down.svg" alt=""></span>
+                <span class="menu">Company <img src="../assets/icons/icon-arrow-down.svg" alt=""></span>
+                <span><a href="#">Careers</a></span>
+                <span><a href="#">About</a></span>
+            </div>
+            
+            <div class="buttons">
+                <button class="button">Login</button>
+                <button id="register" class="button">Register</button>
+            </div>
         </nav>
 
-        <div class="buttons">
-            <button class="button">Login</button>
-            <button id="register" class="button">Register</button>
-        </div>
+        <button id="toggle">☰</button>
+
     </header>
 </template>
 
 <style scoped>
 header {
+    display: flex;
     padding: 1.2em;
-    display: grid;
-    grid-template-columns: auto 1fr auto;
-    align-items: center;
 }
 
 .logo {
+    height: 27px;
     margin-right: 2em;
 }
 
 #navigation {
-    justify-self: left;
+    width: 100%;
+    display: inline-grid;
+    grid-template-columns: 1fr auto;
 }
 
 #navigation span {
@@ -43,6 +49,10 @@ header {
 #navigation a {
     text-decoration: none;
     color: inherit;
+}
+
+.buttons {
+    justify-self: right;
 }
 
 .button {
@@ -60,8 +70,44 @@ header {
     border: 1px solid var(--almost-black);
 }
 
-#navigation *:hover, .button {
+#toggle {
+    border: none;
+    background-color: inherit;
+    font-size: 2.5em;
+
+    display: none;
+}
+
+#navigation *:hover, .button, #toggle {
     cursor: pointer;
     color: var(--almost-black);
+}
+
+
+@media screen and (width < 400px) {
+  header {
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+  }
+
+  nav, .buttons {
+    display: none !important;
+  }
+
+  #toggle {
+    display: inline;
+  }
+
+  #navigation.sidenav {
+    display: block !important;;
+    position: fixed;
+    right: 0;
+    top: 0;
+
+    height: 100%;
+    width: 50%;
+
+  }
 }
 </style>

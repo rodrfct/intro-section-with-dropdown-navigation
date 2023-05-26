@@ -1,3 +1,30 @@
+<script setup>
+import { computed, onMounted, onUnmounted, ref } from 'vue';
+import HeroDesktop from '../assets/images/image-hero-desktop.png'
+import HeroMobile from '../assets/images/image-hero-mobile.png'
+
+const windowSize = ref(window.innerWidth)
+
+const hero = computed(() => {
+    if (windowSize.value < 400) {
+        return HeroMobile
+    } else {
+        return HeroDesktop
+    }
+})
+
+onMounted(() => {
+    window.addEventListener('resize', () => {
+        windowSize.value = window.innerWidth
+    })
+})
+
+onUnmounted(() => {
+    window.removeEventListener('resize')
+})
+
+</script>
+
 <template>
     <main class="wrapper">
         <div class="content">
@@ -7,7 +34,8 @@
             <button class="learn-more">Learn More</button>
         </div>
 
-        <img src="../assets/images/image-hero-desktop.png" alt="" class="hero">
+        <img :src="hero" alt="" class="hero">
+
 
         <div class="clients">
             <img class="client" src="../assets/images/client-databiz.svg" alt="">
@@ -62,5 +90,24 @@
 }
 .client {
     margin: 0 1em;
+}
+
+@media screen and (width < 400px) {
+    .wrapper {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto;
+    }
+
+    .hero {
+        grid-row: 1;
+    }
+
+    .content {
+        grid-row: 2;
+    }
+
+    .clients {
+        grid-row: 3;
+    }
 }
 </style>
