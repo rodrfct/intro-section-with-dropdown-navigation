@@ -10,7 +10,6 @@ This is a solution to the [Intro section with dropdown navigation challenge on F
 - [My process](#my-process)
   - [Built with](#built-with)
   - [What I learned](#what-i-learned)
-  - [Useful resources](#useful-resources)
 
 
 ## Overview
@@ -28,7 +27,7 @@ Users should be able to:
 
 ### Links
 
-- Solution URL: [My Solution]()
+- Solution URL: [My Solution](https://www.frontendmentor.io/solutions/intro-section-with-dropdown-navigation-with-vue-KWGxyTvCWA)
 - Live Site URL: [My Live Site](https://rodrfct.github.io/intro-section-with-dropdown-navigation/)
 
 ## My process
