@@ -2,20 +2,9 @@
 import { ref } from 'vue';
 
 const sidenav = ref(false)
-
-const featuresHidden = ref(true)
-
-const companyHidden = ref(true)
-
 function toggleSidenav() {
     sidenav.value = !sidenav.value
 }
-
-function toggleFeatures() {
-    featuresHidden.value = !featuresHidden.value
-}
-
-function toggleCompany() {companyHidden.value = !companyHidden.value}
 </script>
 
 <template>
@@ -24,11 +13,11 @@ function toggleCompany() {companyHidden.value = !companyHidden.value}
 
         <nav id="navigation" :class="{sidenav}">
             <div class="links">
-                <span @click="toggleFeatures">
+                <span>
                     Features
                     <img src="../assets/icons/icon-arrow-down.svg" alt="">
 
-                    <div class="menu" :class="{hidden: featuresHidden}">
+                    <div class="menu">
                         <ul>
                             <li>
                                 <img src="../assets/icons/icon-todo.svg" alt="">
@@ -49,11 +38,11 @@ function toggleCompany() {companyHidden.value = !companyHidden.value}
                         </ul>
                     </div>
                 </span>
-                <span @click="toggleCompany">
+                <span>
                     Company
                     <img src="../assets/icons/icon-arrow-down.svg" alt="">
                     
-                    <div class="menu company" :class="{hidden: companyHidden}">
+                    <div class="menu company">
                         <ul>
                             <li>
                                 <p>History</p>
@@ -116,15 +105,14 @@ header {
 }
 
 #navigation * {
-    transition: color .4s ease;
-}
-
-.hidden {
-    display: none;
+    transition: color .4s ease, max-height 1s, visibility 1s;
 }
 
 .menu {
     width: 7em;
+    max-height: 1px;
+    visibility: hidden;
+    overflow: hidden;
     background-color: var(--almost-white);
     color: var(--medium-gray);
 
@@ -133,7 +121,12 @@ header {
 
     padding: 1em;
     border-radius: 15px;
-    box-shadow: 1px 1px 50px 1px var(--medium-gray) ;
+    box-shadow: 1px 1px 50px 1px var(--medium-gray);
+}
+
+span:hover .menu {
+    max-height: 200px;
+    visibility: visible;
 }
 
 /*This is a hack tbh but i'm tired and it works for now */
