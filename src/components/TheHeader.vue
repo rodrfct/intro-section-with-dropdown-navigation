@@ -5,6 +5,11 @@ const sidenav = ref(false)
 function toggleSidenav() {
     sidenav.value = !sidenav.value
 }
+
+const hiddenMenus = ref({
+    features: true,
+    company: true
+})
 </script>
 
 <template>
@@ -13,7 +18,7 @@ function toggleSidenav() {
 
         <nav id="navigation" :class="{sidenav}">
             <div class="links">
-                <span>
+                <span :class="{hidden: hiddenMenus.features}" @click="hiddenMenus.features = !hiddenMenus.features">
                     Features
                     <img src="../assets/icons/icon-arrow-down.svg" alt="">
 
@@ -38,7 +43,7 @@ function toggleSidenav() {
                         </ul>
                     </div>
                 </span>
-                <span>
+                <span :class="{hidden: hiddenMenus.company}" @click="hiddenMenus.company = !hiddenMenus.company">
                     Company
                     <img src="../assets/icons/icon-arrow-down.svg" alt="">
                     
@@ -105,28 +110,28 @@ header {
 }
 
 #navigation * {
-    transition: color .4s ease, max-height 1s, visibility 1s;
+    transition: color .4s ease, translate 1s, opacity .4s;
 }
 
 .menu {
     width: 7em;
-    max-height: 1px;
-    visibility: hidden;
+    opacity: 1;
+    translate: 0;
     overflow: hidden;
     background-color: var(--almost-white);
     color: var(--medium-gray);
-
+    
     position: absolute;
     top: 2em;
-
+    
     padding: 1em;
     border-radius: 15px;
     box-shadow: 1px 1px 50px 1px var(--medium-gray);
 }
 
-span:hover .menu {
-    max-height: 200px;
-    visibility: visible;
+.hidden .menu {
+    translate: 0 -100%;
+    opacity: 0;
 }
 
 /*This is a hack tbh but i'm tired and it works for now */
@@ -202,10 +207,12 @@ span:hover .menu {
   }
 
   #navigation.sidenav {
-    display: grid !important;
+    /* display: grid !important;
     grid-template-columns: 1fr;
     grid-template-rows: auto auto 1fr;
-    row-gap: 1em;
+    row-gap: 1em; */
+
+    display: block !important;
 
     position: fixed;
     right: 0;
@@ -230,6 +237,16 @@ span:hover .menu {
     position: static;
     margin-top: 1em;
     box-shadow: none;
+
+    transition: max-height 1s ease;
+  }
+
+  .sidenav .hidden .menu {
+    max-height: 1px;
+  }
+
+  .sidenav span:not(.hidden) .menu {
+    max-height: 400px;
   }
 
   .sidenav .buttons {
